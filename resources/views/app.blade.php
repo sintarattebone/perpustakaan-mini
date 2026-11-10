@@ -13,7 +13,7 @@
     <nav class="bg-blue-600 text-white p-4 shadow">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <a href="/" class="font-bold text-xl">📚 Perpustakaan Mini</a>
-            <a href="{{ route('books.index') }}" class="hover:underline">Data Buku</a>
+            <a href="/" class="hover:underline">Data Buku</a>
         </div>
     </nav>
 
