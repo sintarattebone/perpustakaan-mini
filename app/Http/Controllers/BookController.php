@@ -30,6 +30,37 @@ class BookController extends Controller
 
         Book::create($request->all());
 
-        return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
+        return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan!');
+    }
+
+    public function show(Book $book)
+    {
+        return view('books.show', compact('book'));
+    }
+
+    public function edit(Book $book)
+    {
+        return view('books.edit', compact('book'));
+    }
+
+    public function update(Request $request, Book $book)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'penulis' => 'required',
+            'tahun_terbit' => 'required|numeric',
+            'kategori' => 'required',
+            'stok' => 'required|numeric',
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Buku berhasil diupdate!');
+    }
+
+    public function destroy(Book $book)
+    {
+        $book->delete();
+        return redirect()->route('books.index')->with('success', 'Buku berhasil dihapus!');
     }
 }

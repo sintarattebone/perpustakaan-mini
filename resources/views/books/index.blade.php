@@ -1,3 +1,4 @@
+a
 <!DOCTYPE html>
 <html>
 
@@ -24,17 +25,28 @@
                     <th class="px-4 py-2 text-left">Tahun Terbit</th>
                     <th class="px-4 py-2 text-left">Kategori</th>
                     <th class="px-4 py-2 text-left">Stok</th>
+                    <th class="border p-2">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($books as $index => $book)
                     <tr class="border-t">
                         <td class="px-4 py-2">{{ $books->firstItem() + $index }}</td>
-                        <td class="px-4 py-2">{{ $book->judul }}</td>
-                        <td class="px-4 py-2">{{ $book->penulis }}</td>
-                        <td class="px-4 py-2">{{ $book->tahun_terbit }}</td>
-                        <td class="px-4 py-2">{{ $book->kategori }}</td>
-                        <td class="px-4 py-2">{{ $book->stok }}</td>
+                        <td>{{ $book->judul }}</td>
+                        <td>{{ $book->penulis }}</td>
+                        <td>{{ $book->tahun_terbit }}</td>
+                        <td>{{ $book->kategori }}</td>
+                        <td>{{ $book->stok }}</td>
+                        <td class="border p-2">
+                            <a href="{{ route('books.edit', $book->id) }}"
+                                class="bg-yellow-500 text-white px-2 py-1 rounded text-sm">Edit</a>
+                            <form action="{{ route('books.destroy', $book->id) }}" method="POST" class="inline"
+                                onsubmit="return confirm('Yakin hapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="bg-red-600 text-white px-2 py-1 rounded text-sm">Hapus</button>
+                            </form>
+                        </td>
                     </tr>
                 @empty
                     <tr>
