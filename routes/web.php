@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BookController;
 
-Route::inertia('/', 'Welcome')->name('home');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'Dashboard')->name('dashboard');
+Route::get('/', function () {
+    return redirect()->route('books.index');
 });
 
-require __DIR__.'/settings.php';
+Route::resource('books', BookController::class);
