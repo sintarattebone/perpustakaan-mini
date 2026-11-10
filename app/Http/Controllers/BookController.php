@@ -9,14 +9,27 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::latest()->paginate(10);
+        $books = Book::paginate(10);
         return view('books.index', compact('books'));
     }
 
-    public function create() {}
-    public function store(Request $request) {}
-    public function show(Book $book) {}
-    public function edit(Book $book) {}
-    public function update(Request $request, Book $book) {}
-    public function destroy(Book $book) {}
+    public function create()
+    {
+        return view('books.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'penulis' => 'required',
+            'tahun_terbit' => 'required|numeric',
+            'kategori' => 'required',
+            'stok' => 'required|numeric',
+        ]);
+
+        Book::create($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan');
+    }
 }

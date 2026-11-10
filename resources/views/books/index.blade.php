@@ -8,7 +8,11 @@
 
 <body class="p-8 bg-gray-50">
 
-    <h1 class="text-2xl font-bold mb-4">Data Buku</h1>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-bold">Data Buku</h1>
+        <a href="{{ route('books.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">+ Tambah
+            Buku</a>
+    </div>
 
     <div class="overflow-x-auto bg-white shadow rounded">
         <table class="min-w-full text-sm">
