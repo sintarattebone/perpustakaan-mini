@@ -1,47 +1,30 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  @class(['dark' => ($appearance ?? 'system') == 'dark'])>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="id">
 
-        {{-- Inline script to detect system dark mode preference and apply it immediately --}}
-        <script>
-            (function() {
-                const appearance = '{{ $appearance ?? "system" }}';
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Tugas Pemrograman Web 2')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-                if (appearance === 'system') {
-                    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+<body class="bg-gray-100 min-h-screen">
 
-                    if (prefersDark) {
-                        document.documentElement.classList.add('dark');
-                    }
-                }
-            })();
-        </script>
+    <nav class="bg-blue-600 text-white p-4 shadow">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="font-bold text-xl">📚 Perpustakaan Mini</a>
+            <a href="{{ route('books.index') }}" class="hover:underline">Data Buku</a>
+        </div>
+    </nav>
 
-        {{-- Inline style to set the HTML background color based on our theme in app.css --}}
-        <style>
-            html {
-                background-color: oklch(1 0 0);
-            }
+    <main class="max-w-6xl mx-auto p-6">
+        @yield('content')
+    </main>
 
-            html.dark {
-                background-color: oklch(0.145 0 0);
-            }
-        </style>
+    <footer class="text-center text-gray-500 text-sm py-6">
+        Tugas Pemrograman Web 2 - Laravel 13
+    </footer>
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</body>
 
-        @fonts
-
-        @vite(['resources/css/app.css', 'resources/js/app.ts', "resources/js/pages/{$page['component']}.vue"])
-        <x-inertia::head>
-            <title>{{ config('app.name', 'Laravel') }}</title>
-        </x-inertia::head>
-    </head>
-    <body class="font-sans antialiased">
-        <x-inertia::app />
-    </body>
 </html>
