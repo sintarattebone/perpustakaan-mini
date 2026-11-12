@@ -1,75 +1,75 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Buku</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 p-8">
-
-    <div class="max-w-2xl mx-auto bg-white p-6 rounded shadow">
+<body class="bg-pink-50 p-6">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded-2xl shadow">
         <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold">Tambah Buku</h1>
+            <h1 class="text-2xl font-bold text-pink-700">Tambah Buku</h1>
             <a href="{{ route('books.index') }}"
-                class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Kembali</a>
+                class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-1 rounded-lg text-sm font-bold">Kembali</a>
         </div>
-
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <form action="{{ route('books.store') }}" method="POST">
             @csrf
-
-            <div class="mb-4">
-                <label class="block font-bold mb-1">Judul</label>
-                <input type="text" name="judul" value="{{ old('judul') }}" class="w-full border p-2 rounded"
-                    required>
+            <div class="mb-3">
+                <label class="font-semibold text-pink-700">Judul</label>
+                <input type="text" name="judul" class="w-full border border-pink-200 rounded-xl p-2 mt-1" required
+                    data-pesan="Judul wajib diisi"
+                    oninput="this.setCustomValidity(this.validity.valueMissing ? 'Judul wajib diisi' : '')">
             </div>
-
-            <div class="mb-4">
-                <label class="block font-bold mb-1">Penulis</label>
-                <input type="text" name="penulis" value="{{ old('penulis') }}" class="w-full border p-2 rounded"
-                    required>
+            <div class="mb-3">
+                <label class="font-semibold text-pink-700">Penulis</label>
+                <input type="text" name="penulis" class="w-full border border-pink-200 rounded-xl p-2 mt-1" required
+                    data-pesan="Penulis wajib diisi"
+                    oninput="this.setCustomValidity(this.validity.valueMissing ? 'Penulis wajib diisi' : '')">
             </div>
-
-            <div class="mb-4">
-                <label class="block font-bold mb-1">Tahun Terbit</label>
-                <input type="number" name="tahun_terbit" value="{{ old('tahun_terbit') }}"
-                    class="w-full border p-2 rounded" required>
+            <div class="mb-3">
+                <label class="font-semibold text-pink-700">Tahun Terbit</label>
+                <input type="number" name="tahun_terbit" class="w-full border border-pink-200 rounded-xl p-2 mt-1"
+                    required data-pesan="Tahun terbit wajib diisi"
+                    oninput="this.setCustomValidity(this.validity.valueMissing ? 'Tahun terbit wajib diisi' : '')">
             </div>
-
-            <div class="mb-4">
-                <label class="block font-bold mb-1">Kategori</label>
-                <select name="kategori" class="w-full border p-2 rounded" required>
+            <div class="mb-3">
+                <label class="font-semibold text-pink-700">Kategori</label>
+                <select name="kategori" class="w-full border border-pink-200 rounded-xl p-2 mt-1" required
+                    data-pesan="Kategori wajib dipilih"
+                    oninput="this.setCustomValidity(this.validity.valueMissing ? 'Kategori wajib dipilih' : '')">
                     <option value="">-- Pilih Kategori --</option>
-                    <option value="Fiksi">Fiksi</option>
-                    <option value="Non-Fiksi">Non-Fiksi</option>
-                    <option value="Komik">Komik</option>
-                    <option value="Sejarah">Sejarah</option>
+                    <option>Fiksi</option>
+                    <option>Non-Fiksi</option>
+                    <option>Sejarah</option>
+                    <option>Komik</option>
                 </select>
             </div>
-
             <div class="mb-4">
-                <label class="block font-bold mb-1">Stok</label>
-                <input type="number" name="stok" value="{{ old('stok') }}" class="w-full border p-2 rounded"
-                    required>
+                <label class="font-semibold text-pink-700">Stok</label>
+                <input type="number" name="stok" class="w-full border border-pink-200 rounded-xl p-2 mt-1" required
+                    data-pesan="Stok wajib diisi"
+                    oninput="this.setCustomValidity(this.validity.valueMissing ? 'Stok wajib diisi' : '')">
             </div>
-
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Simpan
-                Buku</button>
+            <button type="submit"
+                class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 rounded-xl">Simpan Buku</button>
         </form>
-    </div>
 
+        <script>
+            document.querySelectorAll('input, select').forEach(function(el) {
+                el.addEventListener('invalid', function() {
+                    el.setCustomValidity(el.dataset.pesan || 'Wajib diisi');
+                });
+                el.addEventListener('input', function() {
+                    el.setCustomValidity('');
+                });
+                el.addEventListener('change', function() {
+                    el.setCustomValidity('');
+                });
+            });
+        </script>
+    </div>
 </body>
 
 </html>
